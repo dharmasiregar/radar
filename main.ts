@@ -1,3 +1,6 @@
+// Token Radar reads a snapshot, scores pre-token protocols with the model in lib/model.ts,
+// and writes board.json, the dashboard, and dossier.json.
+
 // A working token-radar-01 entry (Node 22, standard library only).
 //
 // The program reads the sealed snapshot from /input/snapshot.json (or --input <file|dir>), scores every
@@ -89,3 +92,6 @@ process.stdout.write(
   `token radar: ${snapshot.protocols.length} protocols, ${snapshot.watchlist.length} on the watchlist, ${board.length} rows scored (${radar.early_size} early, ${radar.live_size} live set aside)\n` +
     `token radar: wrote ${join(out, 'board.json')}, ${join(out, 'data.js')}, ${join(out, 'dashboard')} (3 files), ${join(out, 'screenshots')} (${shots.length} images) and ${join(out, 'dossier.json')}\n`,
 );
+
+const topThree = board.slice(0, 3).map((row) => `${row.rank} ${row.slug} ${row.implied_value_usd}`).join('; ');
+console.log(`token radar summary: board rows=${board.length}, watchlist rows=${snapshot.watchlist.length}, top 3 (rank slug implied_value_usd): ${topThree}`);
